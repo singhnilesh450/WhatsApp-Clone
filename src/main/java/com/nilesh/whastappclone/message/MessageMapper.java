@@ -1,6 +1,7 @@
 package com.nilesh.whastappclone.message;
 
 
+import com.nilesh.whastappclone.file.FileUtils;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class MessageMapper {
                 .type(message.getType())
                 .state(message.getState())
                 .createdAt(message.getCreatedDate())
+                .media(FileUtils.readFileFromLocation(message.getMediaFilePath()))
                 .build();
     }
 }
