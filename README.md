@@ -8,7 +8,7 @@ A feature-rich clone of WhatsApp built using modern backend technologies, integr
 - **PostgreSQL Database**: Structured data storage using Hibernate JPA for ORM and PostgreSQL.
 - **File Uploads**: Supports media uploads up to 50MB, with configurable output paths for storing files.
 - **Spring Boot Microservices**: Modular and scalable architecture powered by Spring Boot.
-- **Flyway Migration**: (Disabled by default) Database migration management made easy.
+
 
 ## Tech Stack
 - **Backend**: Spring Boot (JPA, WebSocket, Spring Security)
