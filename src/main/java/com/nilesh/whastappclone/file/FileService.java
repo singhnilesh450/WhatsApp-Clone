@@ -20,6 +20,7 @@ import static java.lang.System.currentTimeMillis;
 @Slf4j
 @RequiredArgsConstructor
 public class FileService {
+
     @Value("${application.file.uploads.media-output-path}")
     private String fileUploadPath;
 
@@ -33,41 +34,39 @@ public class FileService {
 
     private String uploadFile(
             @Nonnull MultipartFile sourceFile,
-            @Nonnull String fileUploadSubPath) {
+            @Nonnull String fileUploadSubPath
+    ) {
         final String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
         File targetFolder = new File(finalUploadPath);
 
         if (!targetFolder.exists()) {
             boolean folderCreated = targetFolder.mkdirs();
             if (!folderCreated) {
-                log.warn("Failed tp create target folder, {}", targetFolder);
+                log.warn("Failed to create the target folder: " + targetFolder);
                 return null;
             }
         }
         final String fileExtension = getFileExtension(sourceFile.getOriginalFilename());
-        String targetFilePath = finalUploadPath + separator + currentTimeMillis() +fileExtension;
+        String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
         Path targetPath = Paths.get(targetFilePath);
-        try{
+        try {
             Files.write(targetPath, sourceFile.getBytes());
-            log.info("File saved to {}", targetPath);
+            log.info("File saved to: " + targetFilePath);
             return targetFilePath;
         } catch (IOException e) {
-            log.error("Failed to save file to {}", targetFilePath, e);
-            //throw new RuntimeException(e);
+            log.error("File was not saved", e);
         }
         return null;
     }
 
     private String getFileExtension(String fileName) {
-        if(fileName==null || fileName.isEmpty()){
+        if (fileName == null || fileName.isEmpty()) {
             return "";
         }
         int lastDotIndex = fileName.lastIndexOf(".");
-        if(lastDotIndex == -1){
+        if (lastDotIndex == -1) {
             return "";
         }
-        return fileName.substring(lastDotIndex+1);
+        return fileName.substring(lastDotIndex + 1).toLowerCase();
     }
-
-
 }

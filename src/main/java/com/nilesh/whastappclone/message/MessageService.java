@@ -4,6 +4,10 @@ package com.nilesh.whastappclone.message;
 import com.nilesh.whastappclone.chat.Chat;
 import com.nilesh.whastappclone.chat.ChatRepository;
 import com.nilesh.whastappclone.file.FileService;
+import com.nilesh.whastappclone.file.FileUtils;
+import com.nilesh.whastappclone.notification.Notification;
+import com.nilesh.whastappclone.notification.NotificationService;
+import com.nilesh.whastappclone.notification.NotificationType;
 import com.nilesh.whastappclone.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,6 +25,7 @@ public class MessageService {
     private final ChatRepository chatRepository;
     private final MessageMapper mapper;
     private final FileService fileService;
+    private final NotificationService notificationService;
 
 
     public void saveMessage(MessageRequest messageRequest) {
@@ -73,7 +78,7 @@ public class MessageService {
         message.setChat(chat);
         messageRepository.save(message);
 
-        /*Notification notification = Notification.builder()
+        Notification notification = Notification.builder()
                 .chatId(chat.getId())
                 .type(NotificationType.IMAGE)
                 .senderId(senderId)
@@ -83,7 +88,6 @@ public class MessageService {
                 .build();
 
         notificationService.sendNotification(receiverId, notification);
-    */
     }
 
     private String getSenderId(Chat chat, Authentication authentication) {

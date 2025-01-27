@@ -1,5 +1,7 @@
 package com.nilesh.whastappclone.message;
 
+//import io.swagger.v3.oas.annotations.Parameter;
+//import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/messages")
 @RequiredArgsConstructor
-//@Tag(name = "Message")
+@Tag(name = "Message")
 public class MessageController {
 
     private final MessageService messageService;
@@ -38,7 +40,7 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadMedia(
             @RequestParam("chat-id") String chatId,
-            //@Parameter()
+            @Parameter()
             @RequestPart("file") MultipartFile file,
             Authentication authentication
     ) {

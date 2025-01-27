@@ -16,4 +16,5 @@ public class ChatMapper {
                 .receiverId(chat.getRecipient().getId())
                 .build();
     }
+
 }
